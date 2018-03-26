@@ -8,6 +8,7 @@ generuj([H|T], N, [H|L]) :- !,
 	N1 is N-1, 
 	generuj(T, N1, L).
 
+
 pobierz(X,[X|R],R).  
 pobierz(X,[F|R],[F|S]) :-
 	pobierz(X,R,S).
@@ -24,11 +25,8 @@ silnia(N,X):-
 	X is N*X1.
 
 
-isList([_|_]).
-isList([]).
-
 start:-
-	V is 4,
+	V is 5,
 	% generowanie listy od 1 do V i jej wyświetlenie
  	generuj([],V, W),	
 	writeln(W),
@@ -44,5 +42,6 @@ start:-
 
 	% ilość permutacji -> długość listy X
 	write('Długosc listy:'),	
+	%TO DO - ilość permutacji X czymkolwiek to jest (listą/termem)
 	fail.
 start.
