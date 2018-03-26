@@ -2,7 +2,7 @@
 
 Overview
 ----------
-Implementation of ORMAT game.
+>- Implementation of ORMAT game.
 
 Tools
 -------
