@@ -16,7 +16,19 @@ pobierz(X,[F|R],[F|S]) :-
 perm([X|Y],Z) :- 
 	perm(Y,W), 
 	pobierz(X,Z,W).  
+
 perm([],[]).
+
+k_comb(K, L, C) :-
+	length(L, N),
+	length(C, K),
+	K =< N,
+	k_comb_1(C, L).
+	
+k_comb_1([], _).
+k_comb_1([X|Xs], L) :-
+	select(X, L, L0),
+	k_comb_1(Xs, L0).
 
 silnia(0,1).
 silnia(N,X):-
@@ -25,23 +37,19 @@ silnia(N,X):-
 	X is N*X1.
 
 
+
 start:-
-	V is 5,
+	V is 4,
 	% generowanie listy od 1 do V i jej wyświetlenie
  	generuj([],V, W),	
 	writeln(W),
 
 	% znalezienie permutacji listy W i ich wyświetlenie
-	perm(W, X),
-	writeln(X),	
+	k_comb(V, W, L),
+	writeln(L),
 
-	% ilość permutacji obliczona 
-	silnia(V, Y),
-	write('Ilosc permutacji:'),	
-	writeln(Y),
+	length(L, Size),
+	writeln(Size),
 
-	% ilość permutacji -> długość listy X
-	write('Długosc listy:'),	
-	%TO DO - ilość permutacji X czymkolwiek to jest (listą/termem)
 	fail.
 start.
