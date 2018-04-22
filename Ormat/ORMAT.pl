@@ -48,8 +48,5 @@ start:-
 	k_comb(V, W, L),
 	writeln(L),
 
-	length(L, Size),
-	writeln(Size),
-
 	fail.
 start.
