@@ -12,7 +12,7 @@ Steps
 -------------
 >- Generating permutation of matrixes<br />
 >- OR operation and returning the best <br/>
->- Integrating with C# GUI
+>- Integrating with Java GUI
 
 Attributons
 -------------

@@ -2,16 +2,23 @@
 
 listy(A,B,C) :-
   lista(A), lista(B), lista(C),
-  \+ sum2(A,B,C).
+  sum2(A,B,C), label(A).
  
 lista([1,0,0]).
 lista([1,1,1]).
-lista([1,1,1).
+lista([0,1,1]).
+lista([1,0,1]).
+lista([0,1,0]).
+lista([0,0,1]).
 
+solutionMC(A,B,C) :-
+  color(A), color(B), color(C), sum2(A,B,C).
+ 
+color([1,0,0]).
+color([1,1,1]).
+color([0,1,1).
 
-suma(A,B,W):-	
-	suma2(W,A,B).
-
+/*dodawanie macierz*/
 sum2([],[],[]).
 sum2([H|T],[H1|T1],[H2|T2]):- 
 	H #\= H1,
@@ -22,16 +29,13 @@ sum2([H|T],[H1|T1],[H2|T2]):-
 	H2 is H,
 	sum2(T,T1,T2).
 
-
-
-				
+/*Lst np[1,1,1, 1,1,1, 1,1,0 ] , W - mozliwosci patternow*/
 pattern(Lst, W):-
 	getPatterns(Lst, A),
 	zastap(A,K),
 	splaszcz(K, W).
 	
 getPatterns(Lst, Qs):-
-	/*Lst np[1,1,1, 1,1,1, 1,1,0 ]*/
 	length(Lst, W),
 	D is integer(sqrt(W)),
 	permutation_clp(D, Qs),
