@@ -1,9 +1,34 @@
 :- use_module(library(clpfd)).
 
+listy(A,B,C) :-
+  lista(A), lista(B), lista(C),
+  \+ sum2(A,B,C).
+ 
+lista([1,0,0]).
+lista([1,1,1]).
+lista([1,1,1).
 
+
+suma(A,B,W):-	
+	suma2(W,A,B).
+
+sum2([],[],[]).
+sum2([H|T],[H1|T1],[H2|T2]):- 
+	H #\= H1,
+	H2 is H+H1,
+	sum2(T,T1,T2).
+sum2([H|T],[H1|T1],[H2|T2]):- 
+	H #= H1,
+	H2 is H,
+	sum2(T,T1,T2).
+
+
+
+				
 pattern(Lst, W):-
 	getPatterns(Lst, A),
-	zastap(A,W).
+	zastap(A,K),
+	splaszcz(K, W).
 	
 getPatterns(Lst, Qs):-
 	/*Lst np[1,1,1, 1,1,1, 1,1,0 ]*/
@@ -11,19 +36,6 @@ getPatterns(Lst, Qs):-
 	D is integer(sqrt(W)),
 	permutation_clp(D, Qs),
 	label(Qs).
-
-
-/*na wejsciu [2,3,1] na wyjsciu [[0,1,0], [0,0,1], [1,0,0]*/
-zastap([], []).
-zastap([O|T], [R|T2]) :- 
-	konw(O,R), 
-	zastap(T, T2).
-
-konw(N,[1,0,0]) :- N =:= 1.
-konw(N,[0,1,0]) :- N =:= 2.
-konw(N,[0,0,1]) :- N =:= 3.
-
-	
 
 permutation_clp(N, Qs) :-
 	length(Qs, N),
@@ -40,12 +52,26 @@ find_p([Q|Qs], Q0, D0) :-
 	Q0 #\= Q,
 	D1 #= D0 + 1,
 	find_p(Qs, Q0, D1).
-	
-/*Wywołanie ?-n_queens(4, Qs), label(Qs).*/
 
-start:-
-	getMatrix([1,2,3], Q),
-	print(Q),
-	fail.
-start.
+/*na wejsciu [2,3,1] na wyjsciu [[0,1,0], [0,0,1], [1,0,0]*/
+zastap([], []).
+zastap([O|T], [R|T2]) :- 
+	konw(O,R), 
+	zastap(T, T2).
+
+konw(N,[1,0,0]) :- N =:= 1.
+konw(N,[0,1,0]) :- N =:= 2.
+konw(N,[0,0,1]) :- N =:= 3.
+
+splaszcz([],[]):- !.
+splaszcz([H|T], Lst):-
+	!,
+	splaszcz(H, Nowa1),
+	splaszcz(T, Nowa2),
+	append(Nowa1, Nowa2, Lst).
+splaszcz(Lst,[Lst]).
+
+
+	
+
 
