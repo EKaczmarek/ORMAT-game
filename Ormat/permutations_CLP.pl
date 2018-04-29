@@ -1,24 +1,13 @@
 :- use_module(library(clpfd)).
 
-listy(A,B,C) :-
-  lista(A), lista(B), lista(C),
-  sum2(A,B,C), label(A).
- 
-lista([1,0,0]).
-lista([1,1,1]).
-lista([0,1,1]).
-lista([1,0,1]).
-lista([0,1,0]).
-lista([0,0,1]).
+listy(Lst, A,B) :-
+	pattern(Lst,A),
+	pattern(Lst,B),
+	sum2(A,B,Lst),
+	label(A), 
+	label(B).
 
-solutionMC(A,B,C) :-
-  color(A), color(B), color(C), sum2(A,B,C).
- 
-color([1,0,0]).
-color([1,1,1]).
-color([0,1,1).
-
-/*dodawanie macierz*/
+/*dodawanie macierzy*/
 sum2([],[],[]).
 sum2([H|T],[H1|T1],[H2|T2]):- 
 	H #\= H1,
