@@ -3,9 +3,32 @@
 listy(Lst, A,B) :-
 	pattern(Lst,A),
 	pattern(Lst,B),
-	sum2(A,B,Lst),
+	sum2(A, B, Lst),
 	label(A), 
 	label(B).
+
+listy(Lst, A,B,C) :-
+	pattern(Lst,A),
+	pattern(Lst,B),
+	pattern(Lst,C),
+	sum2(A, B, Lst1),
+	sum2(C, Lst1, Lst),
+	label(A), 
+	label(B),
+	label(C).
+
+listy(Lst, A,B,C,D) :-
+	pattern(Lst,A),
+	pattern(Lst,B),
+	pattern(Lst,C),
+	pattern(Lst,D),
+	sum2(A, B, Lst1),
+	sum2(C, D, Lst2),
+	sum2(Lst1, Lst2, Lst),
+	label(A), 
+	label(B),
+	label(C), 
+	label(D).
 
 /*dodawanie macierzy*/
 sum2([],[],[]).
