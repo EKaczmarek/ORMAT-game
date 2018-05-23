@@ -41,6 +41,25 @@ sum2([H|T],[H1|T1],[H2|T2]):-
 	H2 is H,
 	sum2(T,T1,T2).
 
+substract([],[],[]).
+substract([H|T],[H1|T1], [H2|T2]):-
+	H #\ H1,
+	H2 is H-H1,
+	substract(T,T1,T2).
+substract([H|T],[H1|T1], [H2|T2]):-
+	H #= H1,
+	H2 is H,
+	substract(T,T1,T2).
+	
+check([H|T], [H1|T1], [H2|T2], [H3|T3], [H4|T4], [H5|T5], [H6|T6]):-
+	substract([H|T], [H1|T1], [W0|W1]),
+	substract([W0|W1], [H2|T2], [W2|W3]),
+	substract([W2|W3], [H3|T3], [W4|W5]),
+	substract([W4|W5], [H4|T4], [W6|W7]),
+	substract([W6|W7], [H5|T5], [W8|W9]),
+	substract([W8|W9], [H6|T6], [0,0,0,0,0,0,0,0,0]).
+
+	
 /*Lst np[1,1,1, 1,1,1, 1,1,0 ] , W - mozliwosci patternow*/
 pattern(Lst, W):-
 	getPatterns(Lst, A),
@@ -75,9 +94,13 @@ zastap([O|T], [R|T2]) :-
 	konw(O,R), 
 	zastap(T, T2).
 
-konw(N,[1,0,0]) :- N =:= 1.
-konw(N,[0,1,0]) :- N =:= 2.
-konw(N,[0,0,1]) :- N =:= 3.
+
+konw(N,[1,0,0]) :- 
+	N =:= 1.
+konw(N,[0,1,0]) :- 
+	N =:= 2.
+konw(N,[0,0,1]) :- 
+	N =:= 3.
 
 splaszcz([],[]):- !.
 splaszcz([H|T], Lst):-
@@ -86,6 +109,14 @@ splaszcz([H|T], Lst):-
 	splaszcz(T, Nowa2),
 	append(Nowa1, Nowa2, Lst).
 splaszcz(Lst,[Lst]).
+
+two_consecutive_ones(Vs) :-
+        automaton(Vs, [source(a),sink(c)],
+                  [arc(a,0,a), arc(a,1,b),
+                   arc(b,0,a), arc(b,1,c),
+                   arc(c,0,c), arc(c,1,c)]).
+				   
+				   
 
 
 	
